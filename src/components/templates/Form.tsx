@@ -5,9 +5,10 @@ const Form = () => {
     name: "",
     age: "",
     gender: "",
+    comment: "",
   });
   const handleChange = (
-    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    e: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -61,6 +62,16 @@ const Form = () => {
             onChange={handleChange}
           />
           その他
+        </label>
+        <br />
+        <label htmlFor="comment">
+          コメント
+          <textarea
+            name="comment"
+            placeholder="コメント入れてください"
+            value={form.comment}
+            onChange={handleChange}
+          ></textarea>
         </label>
       </form>
       <p>
