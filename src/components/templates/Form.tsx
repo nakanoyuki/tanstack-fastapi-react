@@ -1,4 +1,5 @@
-import { useState, ChangeEvent } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -13,9 +14,14 @@ const Form = () => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+  const navigate = useNavigate();
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    navigate({ to: "/result", search: form });
+  };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           名前
           <input
@@ -73,12 +79,8 @@ const Form = () => {
             onChange={handleChange}
           ></textarea>
         </label>
+        <button type="submit">送信</button>
       </form>
-      <p>
-        {form.name}
-        {form.age}
-        {form.gender}
-      </p>
     </>
   );
 };
