@@ -1,5 +1,15 @@
+import {
+  Box,
+  Container,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, ChangeEventHandler } from "react";
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -8,12 +18,16 @@ const Form = () => {
     gender: "",
     comment: "",
   });
+
   const handleChange = (
-    e: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>
+    e:
+      | SelectChangeEvent<string>
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
   const navigate = useNavigate();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -22,67 +36,97 @@ const Form = () => {
       search: form,
     });
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">
-        名前
-        <input
-          name="name"
-          id="name"
-          type="text"
+    <Container>
+      <Box
+        sx={{
+          marginTop: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        onSubmit={handleSubmit}
+      >
+        <Typography variant="h5">アンケート提出</Typography>
+        <TextField
+          id="outlined-based"
+          label="名前"
+          variant="outlined"
           value={form.name}
           onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label htmlFor="age">
-        年齢
-        <select name="age" id="age" value={form.age} onChange={handleChange}>
-          <option value={10}>10代</option>
-          <option value={20}>20代</option>
-          <option value={30}>30代</option>
-        </select>
-      </label>
-      <br />
-      <label htmlFor="age">
-        性別
-        <input
-          name="gender"
-          id="male"
-          type="radio"
-          value="male"
-          onChange={handleChange}
-        />
-        男性
-        <input
-          name="gender"
-          id="female"
-          type="radio"
-          value="female"
-          onChange={handleChange}
-        />
-        女性
-        <input
-          name="gender"
-          id="other"
-          type="radio"
-          value="other"
-          onChange={handleChange}
-        />
-        その他
-      </label>
-      <br />
-      <label htmlFor="comment">
-        コメント
-        <textarea
-          name="comment"
-          placeholder="コメント入れてください"
-          value={form.comment}
-          onChange={handleChange}
-        ></textarea>
-      </label>
-      <button type="submit">検索</button>
-    </form>
+          fullWidth
+        ></TextField>
+
+        <Box sx={{ width: "100%", mt: 2 }}>
+          <InputLabel id="demo-simple-select-label">年齢</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="年齢"
+            value={form.age}
+            onChange={handleChange}
+            fullWidth
+          >
+            <MenuItem value={10}>10代</MenuItem>
+            <MenuItem value={20}>20代</MenuItem>
+            <MenuItem value={30}>30代</MenuItem>
+          </Select>
+        </Box>
+
+        <fieldset>
+          <legend>性別</legend>
+          <label htmlFor="male">
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              value="male"
+              checked={form.gender === "male"}
+              onChange={handleChange}
+            />
+            男性
+          </label>
+          <label htmlFor="female">
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              value="female"
+              checked={form.gender === "female"}
+              onChange={handleChange}
+            />
+            女性
+          </label>
+          <label htmlFor="other">
+            <input
+              type="radio"
+              id="other"
+              name="gender"
+              value="other"
+              checked={form.gender === "other"}
+              onChange={handleChange}
+            />
+            その他
+          </label>
+        </fieldset>
+        <br />
+
+        <label htmlFor="comment">
+          コメント
+          <textarea
+            id="comment"
+            name="comment"
+            placeholder="コメント入れてください"
+            value={form.comment}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+
+        <button type="submit">検索</button>
+      </Box>
+    </Container>
   );
 };
 

@@ -7,10 +7,8 @@ export const Route = createFileRoute("/")({
 
 function HomeComponent() {
   return (
-    <div className="p-2">
-      <div>
-        <Form />
-      </div>
+    <div className="bg-white">
+      <Form />
     </div>
   );
 }
