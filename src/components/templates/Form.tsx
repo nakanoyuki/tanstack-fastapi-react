@@ -1,8 +1,13 @@
 import {
   Box,
+  Button,
   Container,
+  FormControlLabel,
+  FormLabel,
   InputLabel,
   MenuItem,
+  Radio,
+  RadioGroup,
   Select,
   SelectChangeEvent,
   TextField,
@@ -39,7 +44,9 @@ const Form = () => {
 
   return (
     <Container>
+      <Typography variant="h5">アンケート提出</Typography>
       <Box
+        component="form"
         sx={{
           marginTop: 1,
           display: "flex",
@@ -48,83 +55,60 @@ const Form = () => {
         }}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h5">アンケート提出</Typography>
         <TextField
-          id="outlined-based"
+          name="name"
           label="名前"
           variant="outlined"
           value={form.name}
           onChange={handleChange}
           fullWidth
-        ></TextField>
+          margin="normal"
+        />
 
         <Box sx={{ width: "100%", mt: 2 }}>
           <InputLabel id="demo-simple-select-label">年齢</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
+            name="age"
             label="年齢"
             value={form.age}
             onChange={handleChange}
             fullWidth
           >
-            <MenuItem value={10}>10代</MenuItem>
+            <MenuItem value="10">10代</MenuItem>
             <MenuItem value={20}>20代</MenuItem>
             <MenuItem value={30}>30代</MenuItem>
           </Select>
         </Box>
 
-        <fieldset>
-          <legend>性別</legend>
-          <label htmlFor="male">
-            <input
-              type="radio"
-              id="male"
-              name="gender"
-              value="male"
-              checked={form.gender === "male"}
-              onChange={handleChange}
-            />
-            男性
-          </label>
-          <label htmlFor="female">
-            <input
-              type="radio"
-              id="female"
-              name="gender"
-              value="female"
-              checked={form.gender === "female"}
-              onChange={handleChange}
-            />
-            女性
-          </label>
-          <label htmlFor="other">
-            <input
-              type="radio"
-              id="other"
-              name="gender"
-              value="other"
-              checked={form.gender === "other"}
-              onChange={handleChange}
-            />
-            その他
-          </label>
-        </fieldset>
-        <br />
+        <FormLabel component="legend">性別</FormLabel>
+        <RadioGroup
+          row
+          name="gender"
+          value={form.gender}
+          onChange={handleChange}
+        >
+          <FormControlLabel value="女性" control={<Radio />} label="女性" />
+          <FormControlLabel value="男性" control={<Radio />} label="男性" />
+          <FormControlLabel value="その他" control={<Radio />} label="その他" />
+        </RadioGroup>
 
-        <label htmlFor="comment">
-          コメント
-          <textarea
-            id="comment"
-            name="comment"
-            placeholder="コメント入れてください"
-            value={form.comment}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
+        <TextField
+          name="comment"
+          label="コメント"
+          placeholder="コメントを入力してください"
+          multiline
+          rows={4}
+          value={form.comment}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
 
-        <button type="submit">検索</button>
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          送信
+        </Button>
       </Box>
     </Container>
   );
