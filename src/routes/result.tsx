@@ -22,7 +22,7 @@ export const Route = createFileRoute("/result")({
 
 function ResultComponent() {
   return (
-    <div className="p-2">
+    <div className="bg-white">
       <Result />
     </div>
   );

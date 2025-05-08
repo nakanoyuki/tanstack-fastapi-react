@@ -44,29 +44,47 @@ const Form = () => {
 
   return (
     <Container>
-      <Typography variant="h5">アンケート提出</Typography>
       <Box
         component="form"
         sx={{
-          marginTop: 1,
+          paddingTop: 4,
+          paddingBottom: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
         onSubmit={handleSubmit}
       >
-        <TextField
-          name="name"
-          label="名前"
-          variant="outlined"
-          value={form.name}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
+        <Typography variant="h1" sx={{ color: "black", fontSize: 24 }}>
+          フォーム提出
+        </Typography>
 
         <Box sx={{ width: "100%", mt: 2 }}>
-          <InputLabel id="demo-simple-select-label">年齢</InputLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              textAlign: "left",
+              display: "inline-block",
+              width: "100%",
+              color: "black",
+            }}
+          >
+            名前
+          </FormLabel>
+          <TextField
+            name="name"
+            label="名前"
+            variant="outlined"
+            value={form.name}
+            onChange={handleChange}
+            fullWidth
+          />
+        </Box>
+
+        <Box sx={{ width: "100%", mt: 2 }}>
+          <InputLabel id="demo-simple-select-label" sx={{ color: "black" }}>
+            年齢
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -76,24 +94,50 @@ const Form = () => {
             onChange={handleChange}
             fullWidth
           >
-            <MenuItem value="10">10代</MenuItem>
-            <MenuItem value={20}>20代</MenuItem>
-            <MenuItem value={30}>30代</MenuItem>
+            <MenuItem value="10代">10代</MenuItem>
+            <MenuItem value="20代">20代</MenuItem>
+            <MenuItem value="30代">30代</MenuItem>
           </Select>
         </Box>
 
-        <FormLabel component="legend">性別</FormLabel>
-        <RadioGroup
-          row
-          name="gender"
-          value={form.gender}
-          onChange={handleChange}
-        >
-          <FormControlLabel value="女性" control={<Radio />} label="女性" />
-          <FormControlLabel value="男性" control={<Radio />} label="男性" />
-          <FormControlLabel value="その他" control={<Radio />} label="その他" />
-        </RadioGroup>
-
+        <Box sx={{ width: "100%", mt: 2 }}>
+          <FormLabel
+            component="legend"
+            sx={{
+              textAlign: "left",
+              display: "inline-block",
+              width: "100%",
+              color: "black",
+            }}
+          >
+            性別
+          </FormLabel>
+          <RadioGroup
+            row
+            name="gender"
+            value={form.gender}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              sx={{ color: "black" }}
+              value="女性"
+              control={<Radio />}
+              label="女性"
+            />
+            <FormControlLabel
+              sx={{ color: "black" }}
+              value="男性"
+              control={<Radio />}
+              label="男性"
+            />
+            <FormControlLabel
+              sx={{ color: "black" }}
+              value="その他"
+              control={<Radio />}
+              label="その他"
+            />
+          </RadioGroup>
+        </Box>
         <TextField
           name="comment"
           label="コメント"
